@@ -1,0 +1,149 @@
+@model Games.ViewModels.GameOverzichtViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <form asp-controller="Home" asp-action="Filter">
+                <div class="row pb-4">
+                    <div class="col-12">
+                        <div>
+                            <button asp-controller="Home" asp-action="Filter" class="btn btn-outline my-2 my-sm-0 mb-5" type="submit">Filter</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pb-4">
+                    <div class="col-12">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <a data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Filter op platform
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @foreach (Platform platform in Model.platforms)
+                                        {
+                                            <input type="checkbox" name="PlatformsAreChecked" value="@platform.PlatformID">
+                                            <label for="@platform.Naam">@platform.Naam</label><br>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pb-4">
+                    <div class="col-12">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <a data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                            Filter op Genre
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @foreach (Genre genre in Model.genres)
+                                        {
+                                            <input type="checkbox" name="GenresAreChecked" value="@genre.GenreID">
+                                            <label for="@genre.Naam">@genre.Naam</label><br>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pb-4">
+                    <div class="col-12">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingThree">
+                                    <h5 class="mb-0">
+                                        <a data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                            Filter op release jaar
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @foreach (DateTime dateTime in Model.jaartallen)
+                                        {
+                                            <input type="checkbox" name="JaartallenAreChecked" value="@dateTime">
+                                            <label for="@dateTime.Year">@dateTime.Year</label><br>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pb-4">
+                    <div class="col-12">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingFour">
+                                    <h5 class="mb-0">
+                                        <a data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                            Filter op spelmodus
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @foreach (SpelModus spelmodus in Model.spelModussen)
+                                        {
+                                            <input type="checkbox" name="SpelmodussenAreChecked" value="@spelmodus.SpelModusID">
+                                            <label for="@spelmodus.Naam">@spelmodus.Naam</label><br>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-9">
+            <div class="row">
+                @foreach (Game game in Model.gamesToShow)
+                {
+                    <div class="col-lg-4 d-flex align-items-stretch mb-3">
+                        <div class="card h-100">
+                            <img class="customimg" src="@game.Afbeelding">
+                            <div class="card-body">
+                                <h5 class="card-title">@game.Naam</h5>
+                                <p class="card-text">@game.KorteBeschrijving</p>
+                                <a asp-area="" asp-controller="Home" asp-action="GameDetail" asp-route-id="@game.GameID" class="btn">Lees Meer</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            @if (Model.filterActive == false)
+            {
+                <div class="row">
+                    <div class="col-lg-4 d-flex align-items-stretch mb-3">
+                        <form asp-controller="Home" asp-action="ChangePage">
+                            <select class="custom-select mb-3" name="currentPage">
+                                @foreach (int number in Model.pageNumbers)
+                                {
+                                    <option value="@number">@number</option>
+                                }
+                            </select>
+                            <button class="btn btn-outline my-2 my-sm-0 mb-5" asp-area="" asp-controller="Home" asp-action="GameOverzicht" type="submit">Verander Pagina</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

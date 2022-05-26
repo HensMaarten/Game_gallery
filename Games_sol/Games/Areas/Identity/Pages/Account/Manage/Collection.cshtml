@@ -1,0 +1,35 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Collectie";
+    ViewData["ActivePage"] = ManageNavPages.Collection;
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<div class="row">
+    <div class="col-md-6">
+        @if (Model.CollectionUser.Count() > 0)
+        {
+            <div class="row">
+                @for (int i = 0; i < Model.CollectionUser.Count(); i++)
+                {
+                    <div class="col-lg-4 d-flex align-items-stretch mb-3">
+                        <div class="card h-100">
+                            <img style="max-height: 200px" class="img-fluid" src="@Model.CollectionUser[i].Game.Afbeelding" />
+                            <div class="card-body">
+                                <p class="card-title">@Model.CollectionUser[i].Game.Naam</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        { <p>Er zitten nog geen games in je collectie</p>}
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

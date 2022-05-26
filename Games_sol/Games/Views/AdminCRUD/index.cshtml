@@ -1,0 +1,49 @@
+﻿@model Games.ViewModels.AdminCRUDViewModel
+@{
+    ViewData["Title"] = "Admin CRUD";
+}
+<div class="container">
+    <div class="row">
+        <form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Game</th>
+                        <th scope="col">Beschrijving</th>
+                        <th scope="col">ReleaseDatum</th>
+                        <th scope="col">LeeftijdsCategorie</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><a style="color:black" asp-area="" asp-controller="AdminCRUD" asp-action="BewerkGame" class="btn" id="btnCreate">Create</a></td>
+                    </tr>
+                    @foreach (Game game in Model.gamesToShow)
+                    {
+
+                        <tr>
+                            <td> @game.Naam</td>
+                            <td> @game.KorteBeschrijving</td>
+                            <td> @game.ReleaseDatum</td>
+                            <td> @game.leeftijdCategorie.naam</td>
+                            <td><a style="color:black" asp-area="" asp-controller="AdminCRUD" asp-action="BewerkGame" asp-route-id="@game.GameID" class="btn" id="btnEdit">edit</a></td>
+                        </tr>
+                    }
+            </table>
+        </form>
+        <form asp-controller="Home" asp-action="AdminCRUD">
+            <select class="custom-select mb-3" name="currentPage">
+                @foreach (int number in Model.pageNumbers)
+                {
+                    <option value="@number">@number</option>
+                }
+            </select>
+            <button class="btn" asp-area="" asp-controller="AdminCRUD" asp-action="ChangePage" type="submit">Verander Pagina</button>
+        </form>
+    </div>
+</div>

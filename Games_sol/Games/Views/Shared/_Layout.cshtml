@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - Games</title>
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="~/css/site.css" />
+  <script src="https://kit.fontawesome.com/32bed5e1f8.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark mb-3">
+            <div class="container">
+                <a style="color: #AEFEFF" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">The Game Gallery</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>                      
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="AdminCRUD" asp-action="Index">AdminCRUD</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Info">Info</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p> &copy; 2021 - Games - <a asp-area="" asp-controller="Home" asp-action="Info">Info</a>  </p>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+<style>
+    body {background-color: black}
+    h5, h1, h2, h4, h3 th, i {
+        color: #4FBDBA
+    }
+    th {
+        color: #4FBDBA !important;
+    }
+    p, td {
+        color: #35858B
+    }
+    th, td {
+        padding: 10px
+    }
+    button {
+        background-color: #AEFEFF
+    }
+
+    .btn {
+        background-color: #AEFEFF
+    }
+
+    a {
+        color: #AEFEFF
+    }
+    .nav-link {
+        color: #AEFEFF !important
+    }
+        .nav-link:hover {
+            color: white;
+        }
+
+        a:hover {
+            cursor: pointer;
+            color: white;
+        }
+
+    .card {
+        background-color: whitesmoke
+    }
+
+    label {
+        color: #35858B
+    }
+</style>

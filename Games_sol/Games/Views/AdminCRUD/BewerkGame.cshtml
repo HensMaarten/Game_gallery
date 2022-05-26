@@ -1,0 +1,144 @@
+﻿@model Games.ViewModels.BewerkGameViewModel
+@{
+    ViewData["Title"] = "Bewerk Game";
+}
+<div class="container-fluid">
+    <form asp-action="Update" method="post">
+        <div style="visibility:collapse">
+            <label>id</label>
+            <input name="gameId" type="text" class="form-control is-valid" value="@Model.gameId">
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>Naam</label>
+                <input required name="GameNaam" type="text" class="form-control is-valid" value="@Model.GameNaam">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Verander Afbeelding</label>
+                <input required name="gameAfbeelding" type="text" class="form-control is-valid" value="@Model.Game.Afbeelding ">
+            </div>
+            <div class="col-md-3 mb-3">
+                <div style=" display: flex; align-items: center; justify-content: center;">
+                    <img style="max-height: 200px" class="img-fluid" src="@Model.Game.Afbeelding">
+                </div>
+            </div>
+            <div class="col-md-1 mb-3">
+                <label>digitalonly</label>
+                <input name="digitalonly" type="checkbox" class="form-control is-valid" value="@Model.Game.DigitalOnly" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>ReleseDatum</label>
+                <input asp-for="gameDate" class="form-control is-valid" />
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Leeftijdscategorie</label>
+                <select required name="LeeftijdsCategorieën" class="custom-select custom-select-lg mb-3" runat="server">
+                    @foreach (LeeftijdCategorie leeftijdCategorie in Model.leeftijdCategorieën)
+                    {
+                        if (leeftijdCategorie.LeeftijdCategorieID == Model.Game.leeftijdCategorieID)
+                        {
+                            <option value="@leeftijdCategorie.LeeftijdCategorieID" selected="selected">@leeftijdCategorie.naam</option>
+                        }
+                        else
+                        {
+                            <option value="@leeftijdCategorie.LeeftijdCategorieID">@leeftijdCategorie.naam</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Platformen</label>
+                <select required name="Platformen" class="custom-select custom-select-lg mb-3" multiple>
+                    @foreach (Platform platform in Model.Platformen)
+                    {
+                        if (Model.SelectedPlatformen.Contains(platform))
+                        {
+                            <option value="@platform.PlatformID" selected="selected">@platform.Naam</option>
+                        }
+                        else
+                        {
+                            <option value="@platform.PlatformID">@platform.Naam</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>Talen</label>
+                <select required name="Talen" class="custom-select custom-select-lg mb-3" multiple>
+                    @foreach (Taal taal in Model.Talen)
+                    {
+                        if (Model.SelectedTalen.Contains(taal))
+                        {
+                            <option value="@taal.TaalID" selected="selected">@taal.Naam</option>
+                        }
+                        else
+                        {
+                            <option value="@taal.TaalID">@taal.Naam</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Spelmodussen</label>
+                <select required name="Spelmodussen" class="custom-select custom-select-lg mb-3" multiple>
+                    @foreach (SpelModus spelModus in Model.Spelmodussen)
+                    {
+                        if (Model.SelectedSpelmodussen.Contains(spelModus))
+                        {
+                            <option value="@spelModus.SpelModusID" selected="selected">@spelModus.Naam</option>
+                        }
+                        else
+                        {
+                            <option value="@spelModus.SpelModusID">@spelModus.Naam</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Genres</label>
+                <select required name="Genres" class="custom-select custom-select-lg mb-3" multiple>
+                    @foreach (Genre genre in Model.Genres)
+                    {
+                        if (Model.SelectedGenres.Contains(genre))
+                        {
+                            <option value="@genre.GenreID" selected="selected">@genre.Naam</option>
+                        }
+                        else
+                        {
+                            <option value="@genre.GenreID">@genre.Naam</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label>Beschrijving</label>
+                <textarea name="gameDescription" class="form-control" rows="10">@Model.Game.Beschrijving</textarea>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Review</label>
+                <textarea name="gameReview" class="form-control" rows="10">@Model.Game.Review</textarea>
+            </div>
+        </div>
+        @if (Model.IsNew)
+        {
+            <input asp-controller="AdminCRUD" asp-action="Create" class="btn btn-info" id="myBtn" value="Create" type="submit" />
+        }
+        else
+        {
+            <input style="color:black" asp-controller="AdminCRUD" asp-action="Update" class="btn btn-info" id="myBtn" value="Update" type="submit" />
+            <input style="color:black"  asp-controller="AdminCRUD" asp-action="Delete" class="btn btn-info" id="myBtn" value="Delete" type="submit" />
+        }
+    </form>
+</div>
+<style>
+    input, custom-select {
+        background-color: lightslategrey;
+            color: lightslategrey;
+    }
+</style>

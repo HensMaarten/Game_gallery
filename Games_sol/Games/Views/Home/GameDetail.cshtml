@@ -1,0 +1,118 @@
+@model Games.ViewModels.GameDetailViewModel
+@{
+  ViewData["Title"] = "Game Detail";
+}
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+          <div class="row">
+              <img class="img-fluid" src="@Model.game.Afbeelding">
+          </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <form asp-controller="Home" asp-action="Wishlist" asp-route-id="@Model.Id">
+                      <div class="form-group">
+                          <button style="background-color:transparent" asp-controller="Home" asp-action="Wishlist" asp-route-id="@Model.Id" type="submit" class="btn btn-link">
+                              <i class="@Model.WishlistIcon fa-heart fa-3x"></i>
+                          </button>
+                      </div>
+                  </form>
+              </div>
+              <div class="col-md-6">
+                  <form asp-controller="Home" asp-action="Collection" asp-route-id="@Model.Id">
+                      <div class="form-group">
+                          <button style="background-color:transparent" asp-controller="Home" asp-action="Collection" asp-route-id="@Model.Id" type="submit" class="btn btn-link">
+                              <i class="@Model.CollectionIcon fa-check-circle fa-3x"></i>
+                          </button>
+                      </div>
+                  </form>
+              </div>
+              </div>
+          </div>     
+          <div class="col-md-9">
+              <h1>@Model.game.Naam</h1>
+              <div class="table-responsive">
+                  <table>
+                      <thead>
+                          <tr>
+                              <th></th>
+                              <th></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <th>ReleaseDatum</th>
+                              @if (Model.game.ReleaseDatum is DateTime datetime)
+                              {
+                                  <td> @datetime.ToString("d")</td>
+                              }
+                          </tr>
+                          <tr>
+                              <th>Leeftijdscategorie</th>
+                              <td>@Model.game.leeftijdCategorie.naam</td>
+                          </tr>
+                          <tr>
+                              <th>Platform</th>
+                              @foreach (GamePlatform gameplatform in Model.gamePlatforms)
+                              {
+                                  <td>@gameplatform.platform.Naam</td>
+                              }
+                          </tr>
+                          <tr>
+                              <th>Genre</th>
+                              @foreach (GameGenre gameGenre in Model.gameGenres)
+                              {
+                                  <td>@gameGenre.genre.Naam</td>
+                              }
+                          </tr>
+                          <tr>
+                              <th>Taal</th>
+                              @foreach (GameTaal gameTaal in Model.gameTalen)
+                              {
+                                  <td>@gameTaal.taal.Naam</td>
+                              }
+                          </tr>
+                          <tr>
+                              <th>Spelmodus</th>
+                              @foreach (GameSpelModus gameSpelModus in Model.gameSpelModussen)
+                              {
+                                  <td>@gameSpelModus.spelModus.Naam</td>
+                              }
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div id="accordion">
+                  <div class="card">
+                      <div class="card-header" id="headingOne">
+                          <h5 class="mb-0">
+                              <button style="background-color:transparent" class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                  Beschrijving
+                              </button>
+                          </h5>
+                      </div>
+
+                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+                              @Model.game.Beschrijving
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card">
+                      <div class="card-header" id="headingTwo">
+                          <h5 class="mb-0">
+                              <button style="background-color:transparent" class="btn collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  Review
+                              </button>
+                          </h5>
+                      </div>
+                      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                          <div class="card-body">
+                              @Model.game.Review
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
